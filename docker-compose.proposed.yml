@@ -1,0 +1,27 @@
+services:
+  edge-local:
+    image: eclipse-mosquitto:2
+    container_name: edge-local
+    ports:
+      - "11883:1883"
+    volumes:
+      - ./brokers/edge-local/mosquitto.conf:/mosquitto/config/mosquitto.conf
+    restart: unless-stopped
+
+  cloud-a:
+    image: eclipse-mosquitto:2
+    container_name: cloud-a
+    ports:
+      - "12883:1883"
+    volumes:
+      - ./brokers/cloud-a/mosquitto.conf:/mosquitto/config/mosquitto.conf
+    restart: unless-stopped
+
+  cloud-b:
+    image: eclipse-mosquitto:2
+    container_name: cloud-b
+    ports:
+      - "13883:1883"
+    volumes:
+      - ./brokers/cloud-b/mosquitto.conf:/mosquitto/config/mosquitto.conf
+    restart: unless-stopped

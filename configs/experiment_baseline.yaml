@@ -1,0 +1,43 @@
+experiment_name: baseline
+topology_mode: baseline
+mode: fake
+num_clients: 5
+rounds: 3
+brokers:
+  client:
+    host: 127.0.0.1
+    port: 11883
+    role: edge
+  aggregator:
+    host: 127.0.0.1
+    port: 11883
+    role: edge
+  orchestrator:
+    host: 127.0.0.1
+    port: 11883
+    role: edge
+topics:
+  control:
+    publish_topic: fl/control/start
+    subscribe_topic: fl/control/start
+  updates:
+    publish_prefix: fl/update
+    subscribe_prefix: fl/update
+  global_model:
+    publish_topic: fl/global_model
+    subscribe_topic: fl/global_model
+training:
+  local_epochs: 5
+  learning_rate: 0.0002
+  reuse_global_model: true
+compression:
+  enabled: false
+  algorithm: identity
+  channels:
+    control: false
+    updates: false
+    global_model: false
+metrics_round_csv: logs/metrics_round.csv
+metrics_summary_csv: logs/metrics_summary.csv
+data_dir: data/splits
+model_type: linear_regression

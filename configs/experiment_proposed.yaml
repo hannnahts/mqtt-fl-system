@@ -1,0 +1,59 @@
+experiment_name: proposed
+topology_mode: proposed
+mode: fake
+num_clients: 5
+rounds: 3
+brokers:
+  client:
+    host: 127.0.0.1
+    port: 11883
+    role: edge
+  orchestrator:
+    host: 127.0.0.1
+    port: 13883
+    role: cloud_b
+  cloud_a:
+    host: 127.0.0.1
+    port: 12883
+    role: cloud_a
+  cloud_b:
+    host: 127.0.0.1
+    port: 13883
+    role: cloud_b
+  aggregator_publish:
+    host: 127.0.0.1
+    port: 13883
+    role: cloud_b
+routing:
+  update_broker_order:
+    - cloud_a
+    - cloud_b
+topics:
+  control:
+    publish_topic: fl/cloud/control/start
+    subscribe_topic: fl/cloud/control/start
+  updates:
+    publish_prefixes:
+      cloud_a: fl/edge/updates/cloud_a
+      cloud_b: fl/edge/updates/cloud_b
+    subscribe_prefixes:
+      cloud_a: fl/edge/updates/cloud_a
+      cloud_b: fl/edge/updates/cloud_b
+  global_model:
+    publish_topic: fl/cloud/global_model
+    subscribe_topic: fl/cloud/global_model
+training:
+  local_epochs: 5
+  learning_rate: 0.0002
+  reuse_global_model: true
+compression:
+  enabled: true
+  algorithm: gzip
+  channels:
+    control: false
+    updates: true
+    global_model: true
+metrics_round_csv: logs/metrics_round.csv
+metrics_summary_csv: logs/metrics_summary.csv
+data_dir: data/splits
+model_type: linear_regression
